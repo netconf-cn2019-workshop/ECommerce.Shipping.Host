@@ -44,7 +44,7 @@ namespace ECommerce.Shipping.Host.Sagas
             context.Instance.OrderId = context.Data.OrderId;
             context.Instance.CorrelationId = context.Data.CorrelationId;
 
-            _logger.LogInformation($"Saga: Order {context.Instance.OrderId} submitted by customer {context.Instance.CustomerId} for processing.");
+            _logger.LogInformation($"Saga: 正在处理 由顾客 {context.Instance.CustomerId} 提交的订单 {context.Instance.OrderId}...");
 
             await context.RespondAsync(new InitiateOrderPackingCommand() {
                 CorrelationId = context.Instance.CorrelationId,
@@ -57,7 +57,7 @@ namespace ECommerce.Shipping.Host.Sagas
         {
             context.Instance.IsPacked = true;
 
-            _logger.LogInformation($"Saga: Order {context.Instance.OrderId} submitted by customer {context.Instance.CustomerId} is packed.");
+            _logger.LogInformation($"Saga: 由顾客 {context.Instance.CustomerId} 提交的订单 {context.Instance.OrderId} 打包完成");
 
             if (context.Instance.IsPacked && context.Instance.IsPayed)
             {
@@ -73,7 +73,7 @@ namespace ECommerce.Shipping.Host.Sagas
         {
             context.Instance.IsPayed = true;
 
-            _logger.LogInformation($"Saga: Order {context.Instance.OrderId} submitted by customer {context.Instance.CustomerId} is payed.");
+            _logger.LogInformation($"Saga: 由顾客 {context.Instance.CustomerId} 提交的订单 {context.Instance.OrderId} 已完成支付");
 
             if (context.Instance.IsPacked && context.Instance.IsPayed)
             {
@@ -87,7 +87,7 @@ namespace ECommerce.Shipping.Host.Sagas
 
         private async void OnOrderComplete(BehaviorContext<Shipment, OrderCompletedEvent> context)
         {
-            _logger.LogInformation($"Saga: Order {context.Instance.OrderId} submitted by customer {context.Instance.CustomerId} has shipped.");
+            _logger.LogInformation($"Saga: 由顾客 {context.Instance.CustomerId} 提交的订单 {context.Instance.OrderId} 已发货");
         }
 
         public State Submitted { get; set; }

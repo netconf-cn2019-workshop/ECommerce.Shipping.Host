@@ -19,7 +19,7 @@ namespace ECommerce.Shipping.Host
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug("Starting service bus");
+            _logger.LogDebug("正在启动服务总线");
 
             try
             {
@@ -27,18 +27,17 @@ namespace ECommerce.Shipping.Host
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while starting service bus.");
+                _logger.LogError(ex, "启动服务总线时发生错误");
                 throw;
             }
 
-            _logger.LogInformation("Running Shipping microservice.");
+            _logger.LogInformation("发货 微服务已启动");
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Stopping Shipping microservice.");
             await _busControl.StopAsync(cancellationToken);
-            _logger.LogInformation("Shipping microservice stopped.");
+            _logger.LogInformation("发货 微服务已停止");
         }
     }
 }

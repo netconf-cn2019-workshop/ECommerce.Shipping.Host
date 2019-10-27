@@ -26,13 +26,13 @@ namespace ECommerce.Shipping.Host
 
             try
             {
-                Log.Information("Starting host");
+                Log.Information("服务正在启动");
                 BuildHost(args).Run();
                 return;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, "服务意外终止");
                 return;
             }
             finally

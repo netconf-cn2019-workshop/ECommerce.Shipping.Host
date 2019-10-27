@@ -18,7 +18,7 @@ namespace ECommerce.Shipping.Host.Consumers
 
         public async Task Consume(ConsumeContext<ShipOrderCommand> context)
         {
-            _logger.LogDebug($"Order {context.Message.OrderId} for customer {context.Message.CustomerId} is being shipped.");
+            _logger.LogDebug($"由顾客 {context.Message.CustomerId} 提交的订单 {context.Message.OrderId} 正在发货");
                    
             await Task.Delay(5000); // shipping takes some time!
 
