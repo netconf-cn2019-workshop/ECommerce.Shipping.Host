@@ -1,20 +1,27 @@
-FROM mcr.microsoft.com/dotnet/core/runtime:2.2 AS base
-WORKDIR /app
+ARG PROJ_NAME
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
-WORKDIR /src
-COPY Services/ECommerce.Shipping.Host/ECommerce.Shipping.Host.csproj Services/ECommerce.Shipping.Host/
-COPY Services/ECommerce.Common/ECommerce.Common.csproj Services/ECommerce.Common/
-COPY Services/ECommerce.Services.Common/ECommerce.Services.Common.csproj Services/ECommerce.Services.Common/
-RUN dotnet restore Services/ECommerce.Shipping.Host/ECommerce.Shipping.Host.csproj
-COPY . .
-WORKDIR /src/Services/ECommerce.Shipping.Host
-RUN dotnet build ECommerce.Shipping.Host.csproj -c Release -o /app
+FROM dotnetclub-docker.pkg.coding.net/dotnetconf/mcr/core:2.2 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM dotnetclub-docker.pkg.coding.net/dotnetconf/mcr/dotnet-core-sdk:2.2 AS build
+ARG PROJ_NAME
+COPY . /src/
+WORKDIR /src/
+
+RUN dotnet restore ${PROJ_NAME}.csproj
+RUN dotnet build ${PROJ_NAME}.csproj -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish ECommerce.Shipping.Host.csproj -c Release -o /app
+ARG PROJ_NAME
+RUN dotnet publish ${PROJ_NAME}.csproj -c Release -o /app
 
 FROM base AS final
+ARG PROJ_NAME
+ENV APP_NAME=${PROJ_NAME}
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "ECommerce.Shipping.Host.dll"]
+ENTRYPOINT ["/bin/bash", "-c", "dotnet ${APP_NAME}.dll"]
+
+
+# docker build . -t dotnetclub-docker.pkg.coding.net/dotnetconf/dev/$(basename $(pwd) | cut -d '.' -f 2,3 | awk '{print tolower($0)}' | sed 's/\./\-/g'):$(date +"%Y%m%d-%H%M%S") --build-arg PROJ_NAME=$(basename $(pwd))

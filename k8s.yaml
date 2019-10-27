@@ -1,0 +1,31 @@
+
+---
+#
+# Shipping Microservice Deployment
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping-host
+  namespace: ecommerce
+spec:
+  selector:
+    matchLabels:
+      app: shipping-host
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shipping-host
+        tier: backend
+    spec:
+      containers:
+      - name: shipping-host
+        image: $$REGISTRY_SERVERshipping-host:$$IMAGE_VERSION
+        imagePullPolicy: $$IMAGE_PULL_POLICY
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "$$ENVIRONMENT_NAME"
+        - name: ASPNETCORE_ORCHESTRATOR
+          value: "k8s"
