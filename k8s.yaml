@@ -7,7 +7,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shipping-host
-  namespace: ecommerce
+  labels:
+    app: sales-api
+    tier: backend
 spec:
   selector:
     matchLabels:
@@ -23,7 +25,7 @@ spec:
       containers:
       - name: shipping-host
         image: $$REGISTRY_SERVERshipping-host:$$IMAGE_VERSION
-        imagePullPolicy: $$IMAGE_PULL_POLICY
+        imagePullPolicy: IfNotPresent
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "$$ENVIRONMENT_NAME"
