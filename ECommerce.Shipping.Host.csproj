@@ -16,7 +16,6 @@
     <PackageReference Include="MassTransit" Version="5.5.2" />
     <PackageReference Include="MassTransit.Automatonymous.Autofac" Version="5.5.2" />
     <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="5.5.2" />
-    <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="2.10.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="2.2.0" />    
@@ -25,7 +24,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="2.0.0" />
-    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.0.3" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="ECommerce.Common" Version="1.0.0" />
     <PackageReference Include="ECommerce.Services.Common" Version="1.0.0" />
