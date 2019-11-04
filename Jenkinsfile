@@ -1,6 +1,6 @@
 
 def PROJECT_NAME = "ECommerce.Shipping.Host"
-def REPO_BASE = "http://gogs/gogs"
+def REPO_BASE = "http://gogs:3000/gogs"
 def IMAGE_NAME = PROJECT_NAME.substring("ECommerce.".length()).toLowerCase().replace(".", "-")
 def IMAGE_TAG="$IMAGE_NAME:$DEPLOY_SUFFIX-build-$BUILD_NUMBER"
 node("dotnet") {
